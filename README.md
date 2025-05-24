@@ -1,4 +1,4 @@
-Máquina expendedora
+# Máquina expendedora
 
 El siguiente programa simula una máquina expendedora. La misma acepta 4 tipos de billetes: de $1, $2, $5 y $10.
 Se pueden ingresar como máximo 5 billetes. La máquina expendedora debe devolver el vuelto, siempre se debe intentar devolver el billete
