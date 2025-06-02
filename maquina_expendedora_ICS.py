@@ -24,33 +24,18 @@ class MaquinaExpendedora():
         return resultado
 
     
-    def ingresa_billetes(self):
-        os.system('cls')
-        print(self)
-        print("Ingrese cantidad de billetes (límite de 5 en total)")
-        uno = int(input("billetes de 1: "))
-        os.system('cls')
-        print(self)
-        print("Ingrese cantidad de billetes (límite de 5 en total)")
-        dos = int(input("billetes de 2: "))
-        os.system('cls')
-        print(self)
-        print("Ingrese cantidad de billetes (límite de 5 en total)")
-        cinco = int(input("billetes de 5: "))
-        os.system('cls')
-        print(self)
-        print("Ingrese cantidad de billetes (límite de 5 en total)")
-        diez = int(input("billetes de 10: "))
-        self.total_ingresado = uno*1 + dos*2 + cinco*5 + diez*10 # total ingresado a tener en cuenta para el vuelto
-        if uno + dos + cinco + diez > 5:
+    def comprueba_billetes(self, lista_billetes):
+        # Total ingresado a tener en cuenta para el vuelto
+        self.total_ingresado = lista_billetes[0]*1 + lista_billetes[1]*2 + lista_billetes[2]*5 + lista_billetes[3]*10 
+        if sum(lista_billetes) > 5:
             # Error de exceso
             self.__mensaje_error(1, self.__devuelve_vuelto(self.total_ingresado), self.total_ingresado)
             return False
         else:
-            self._cantidad1 = uno
-            self._cantidad2 = dos
-            self._cantidad5 = cinco
-            self._cantidad10 = diez
+            self._cantidad1 = lista_billetes[0]
+            self._cantidad2 = lista_billetes[1]
+            self._cantidad5 = lista_billetes[2]
+            self._cantidad10 = lista_billetes[3]
             return True
 
     def buscar_existencias(self, fila, columna):
@@ -138,9 +123,31 @@ def convertir_fila(fila):
     elif fila == "E":
         return 4
 
-maquina = MaquinaExpendedora(existencias)
+def ingresa_billetes(maquina):
+    os.system('cls')
+    print(maquina)
+    print("Ingrese cantidad de billetes (límite de 5 en total)")
+    uno = int(input("billetes de 1: "))
+    os.system('cls')
+    print(maquina)
+    print("Ingrese cantidad de billetes (límite de 5 en total)")
+    dos = int(input("billetes de 2: "))
+    os.system('cls')
+    print(maquina)
+    print("Ingrese cantidad de billetes (límite de 5 en total)")
+    cinco = int(input("billetes de 5: "))
+    os.system('cls')
+    print(maquina)
+    print("Ingrese cantidad de billetes (límite de 5 en total)")
+    diez = int(input("billetes de 10: "))
+
+    return [uno, dos, cinco, diez]
+
+
 
 # Flujo del programa
+maquina = MaquinaExpendedora(existencias)
+
 while True:
     os.system('cls')
     print(maquina)
@@ -158,8 +165,8 @@ while True:
     if opcion == 1:
 
         # Lógica de ingresar billetes
-        while not maquina.ingresa_billetes():
-            maquina.ingresa_billetes()
+        while not maquina.comprueba_billetes(ingresa_billetes(maquina)):
+            maquina.comprueba_billetes(ingresa_billetes(maquina))
         
         # Lógica de ingresar fila y columna
         os.system('cls')
@@ -173,14 +180,14 @@ while True:
 
         os.system('cls')
         print(maquina)
-        columna = int(input("Ingrese columna: "))
-        while columna not in [1, 2, 3, 4, 5, 6]:
+        columna = input("Ingrese columna: ")
+        while columna not in ["1", "2", "3", "4", "5", "6"]:
             os.system("cls")
             print(maquina)
-            columna = int(input("Ingrese columna válida (1-2-3-4-5-6): "))
+            columna = input("Ingrese columna válida (1-2-3-4-5-6): ")
 
         # Lógica de buscar existencias
-        maquina.buscar_existencias(fila, columna)
+        maquina.buscar_existencias(fila, int(columna))
 
     # Desea recargar
     elif opcion == 2:
