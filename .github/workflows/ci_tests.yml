@@ -23,6 +23,11 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Instalar pytest
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
       - name: Ejecutar tests
         run: pytest
 
@@ -35,7 +40,7 @@ jobs:
             --data '{"text":"✅ Build y tests exitosos en la rama '${{ github.ref_name }}' - Commit: ${{ github.sha }}"}' \
             $SLACK_WEBHOOK_URL
 
-      - name: Notificar a Slack en caso de fallo
+      - name: Feedback con Slack en caso de fallo
         if: failure()
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
