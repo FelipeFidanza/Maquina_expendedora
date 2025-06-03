@@ -1,4 +1,5 @@
 import os
+import time
 
 existencias = [
     [24, 7, 6, 7, 5, 2, 4], # Galletitas $24
@@ -75,7 +76,8 @@ class MaquinaExpendedora():
         print(f"\t- {billetes[1]} billetes de $2")
         print(f"\t- {billetes[2]} billetes de $5")
         print(f"\t- {billetes[3]} billetes de $10")
-        input("Presione enter para continuar...")
+        print("Presione enter para continuar...")
+        time.sleep(3)
 
     def __mensaje_exito(self, producto, billetes, vuelto):
         os.system("cls")
@@ -95,7 +97,8 @@ class MaquinaExpendedora():
         print(f"\t- {billetes[1]} billetes de $2")
         print(f"\t- {billetes[2]} billetes de $5")
         print(f"\t- {billetes[3]} billetes de $10")
-        input("Presione enter para continuar...")
+        print("Presione enter para continuar...")
+        time.sleep(3)
 
     def recarga_existencias(self, cantidad, producto):
         for i in range(1, 7):
@@ -127,112 +130,83 @@ def ingresa_billetes(maquina):
     os.system('cls')
     print(maquina)
     print("Ingrese cantidad de billetes (límite de 5 en total)")
-    uno = int(input("billetes de 1: "))
+    #uno = int(input("billetes de 1: "))
+    time.sleep(2)
     os.system('cls')
     print(maquina)
     print("Ingrese cantidad de billetes (límite de 5 en total)")
-    dos = int(input("billetes de 2: "))
+    #dos = int(input("billetes de 2: "))
+    time.sleep(2)
     os.system('cls')
     print(maquina)
     print("Ingrese cantidad de billetes (límite de 5 en total)")
-    cinco = int(input("billetes de 5: "))
+    #cinco = int(input("billetes de 5: "))
+    time.sleep(2)
     os.system('cls')
     print(maquina)
     print("Ingrese cantidad de billetes (límite de 5 en total)")
-    diez = int(input("billetes de 10: "))
+    #diez = int(input("billetes de 10: "))
+    time.sleep(2)
 
-    return [uno, dos, cinco, diez]
+    return [0, 0, 0, 5]
 
 
 
 # Flujo del programa
 maquina = MaquinaExpendedora(existencias)
 
-while True:
+for i in range(3):
     os.system('cls')
     print(maquina)
     print("0-Salir" + " "*2 + "|" + " "*2 + "1-Comprar" + " "*2 + "|" + " "*2 + "2-Recargar")
-    try:
-        opcion = int(input())
-    except ValueError:
-        os.system('cls')
-        print(maquina)
-        print("Entrada inválida. Por favor ingrese 0-1-2.")
-        input("Presione enter para continuar...")
-        continue
     
     # Desea comprar
-    if opcion == 1:
+    if i == 0:
 
         # Lógica de ingresar billetes
-        while not maquina.comprueba_billetes(ingresa_billetes(maquina)):
-            maquina.comprueba_billetes(ingresa_billetes(maquina))
+        maquina.comprueba_billetes(ingresa_billetes(maquina))
         
         # Lógica de ingresar fila y columna
         os.system('cls')
         print(maquina)
-        fila = input("Ingrese fila: ").upper()
-        while fila not in ["A", "B", "C", "D", "E"]:
-            os.system("cls")
-            print(maquina)
-            fila = input("Ingrese fila válida (A-B-C-D-E): ").upper()
-        fila = convertir_fila(fila)
+        print("Ingrese fila: ")
+        time.sleep(3)
+        fila = convertir_fila("D")
 
         os.system('cls')
         print(maquina)
-        columna = input("Ingrese columna: ")
-        while columna not in ["1", "2", "3", "4", "5", "6"]:
-            os.system("cls")
-            print(maquina)
-            columna = input("Ingrese columna válida (1-2-3-4-5-6): ")
+        print("Ingrese columna: ")
+        time.sleep(3)
+        columna = 3
 
         # Lógica de buscar existencias
-        maquina.buscar_existencias(fila, int(columna))
+        maquina.buscar_existencias(fila, columna)
 
     # Desea recargar
-    elif opcion == 2:
+    elif i == 1:
         # Pido cantidad
-        while True:
-            os.system('cls')
-            print(maquina)
-            try:
-                cantidad = int(input("Ingrese la cantidad: "))
-                break
-            except ValueError:
-                os.system('cls')
-                print(maquina)
-                input("Debe ingresar un valor numérico.")
-                continue
+        os.system('cls')
+        print(maquina)
+        print("Ingrese la cantidad: ")
+        time.sleep(3)
+        cantidad = 15
 
         # Pido artículo
         os.system('cls')
         print(maquina)
         print("Ingrese el producto (1-Galletitas | 2-Alfajor | 3-Chicle | 4-Chips | 5-Coca cola)")
-        producto = input()
-        while producto not in ["1", "2", "3", "4", "5"]:
-            os.system('cls')
-            print(maquina)
-            input("Producto no válido. Intente nuevamente.")
-            os.system('cls')
-            print(maquina)
-            print("Ingrese el producto (1-Galletitas | 2-Alfajor | 3-Chicle | 4-Chips | 5-Coca cola)")
-            producto = input()
-        producto = int(producto) - 1 # Para acomodarlo a la lista de python que arranca en 0
+        time.sleep(3)
+        producto = 3
+        producto -= 1 # Para acomodarlo a la lista de python que arranca en 0
 
         os.system('cls')
         print(maquina)
         print(maquina.recarga_existencias(cantidad, producto))
-        input()
+        time.sleep(3)
 
     # Desea salir
-    elif opcion == 0:
-        break
-
-    # Opcion no valida
-    else:
-        os.system('cls')
-        print(maquina)
-        input("Opción no válida. Intente nuevamente.")
+    elif i == 2:
+        continue
        
 
 os.system('cls')
