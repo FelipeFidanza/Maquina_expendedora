@@ -31,13 +31,22 @@ jobs:
       - name: Ejecutar tests
         run: pytest
 
-      - name: Feedback con Slack para éxito
-        if: success()
+      - name: Feedback con Slack para éxito en PR
+        if: success() && github.event_name == 'pull_request'
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
         run: |
           curl -X POST -H 'Content-type: application/json' \
-            --data '{"text":"✅ Build y tests exitosos en la rama '${{ github.ref_name }}' - Commit: ${{ github.sha }}"}' \
+            --data "{\"text\":\"✅ Build y tests exitosos.\n${{github.actor}} realizó un ${{github.event_name}} desde la rama ${{github.head_ref}} hasta la rama ${{github.base_ref}}\"}" \
+            $SLACK_WEBHOOK_URL
+
+      - name: Feedback con Slack para éxito en commit
+        if: success() && github.event_name == 'push'
+        env:
+          SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\"✅ Build y tests exitosos en la rama ${{github.ref_name}}\n${{github.actor}} realizó un ${{github.event_name}}\"}" \
             $SLACK_WEBHOOK_URL
 
       - name: Feedback con Slack en caso de fallo
@@ -46,5 +55,5 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           curl -X POST -H 'Content-type: application/json' \
-            --data '{"text":"❌ Build o tests fallaron en la rama '${{ github.ref_name }}' - Commit: ${{ github.sha }}"}' \
+            --data "{\"text\":\"❌ Build o tests fallaron en la rama ${{github.ref_name}}\n${{github.actor}} intentó realizar un ${{github.event_name}}\" \
             $SLACK_WEBHOOK_URL
