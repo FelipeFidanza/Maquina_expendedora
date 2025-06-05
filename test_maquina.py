@@ -29,7 +29,7 @@ class TestMaquinaExpendedora(unittest.TestCase):
 
     def test_devuelve_vuelto(self):
         self.assertEqual(self.maquina._MaquinaExpendedora__devuelve_vuelto(18), [1,1,1,1]) # Vuelto de $18 en 1 billete de cada tipo
-        self.assertEqual(self.maquina._MaquinaExpendedora__devuelve_vuelto(14), [0,0,0,1]) # Vuelto de $14 en dos de $2 y uno de $10
+        self.assertEqual(self.maquina._MaquinaExpendedora__devuelve_vuelto(14), [0,2,0,1]) # Vuelto de $14 en dos de $2 y uno de $10
 
     # def test_recarga_existencias(self):
     #     self.assertEqual(self.maquina.recarga_existencias(20, 3), 'Artículos recargados. cantidad sobrante: 0.')
