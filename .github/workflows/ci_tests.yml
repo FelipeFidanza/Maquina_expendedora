@@ -2,9 +2,13 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - dev
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - dev
+      - main
 
 jobs:
   build:
@@ -19,12 +23,28 @@ jobs:
         with:
           python-version: "3.x"
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Instalar pytest
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Ejecutar tests
+        run: pytest
+
+      - name: Feedback con Slack para éxito
+        if: success()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"✅ Build y tests exitosos en la rama '${{ github.ref_name }}' - Commit: ${{ github.sha }}"}' \
+            $SLACK_WEBHOOK_URL
+
+      - name: Feedback con Slack en caso de fallo
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"❌ Build o tests fallaron en la rama '${{ github.ref_name }}' - Commit: ${{ github.sha }}"}' \
+            $SLACK_WEBHOOK_URL
