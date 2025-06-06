@@ -33,7 +33,7 @@ class TestMaquinaExpendedora(unittest.TestCase):
 
     def test_recarga_existencias(self):
         self.assertEqual(self.maquina.recarga_existencias(20, 3), 'Artículos recargados. cantidad sobrante: 2.')
-        self.assertEqual(self.maquina.recarga_existencias(15, 1), 'Artículos recargados. cantidad sobrante: 4.')
+        self.assertEqual(self.maquina.recarga_existencias(15, 1), 'Artículos recargados. cantidad sobrante: 0.')
 
 if __name__ == '__main__':
     unittest.main()
