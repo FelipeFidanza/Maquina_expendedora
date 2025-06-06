@@ -37,7 +37,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
         run: |
           curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"✅ Build y tests exitosos.\n${{github.actor}} realizó un ${{github.event_name}} desde la rama ${{github.head_ref}} hasta la rama ${{github.base_ref}}\"}" \
+            --data "{\"text\":\"✅ Build y tests exitosos.\n${{github.actor}} realizó un ${{github.event_name}} desde la rama ${{github.head_ref}} a la rama ${{github.base_ref}}\"}" \
             $SLACK_WEBHOOK_URL
 
       - name: Feedback con Slack para éxito en commit
