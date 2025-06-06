@@ -55,5 +55,5 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"❌ Build o tests fallaron en la rama ${{github.ref_name}}\n${{github.actor}} intentó realizar un ${{github.event_name}}\" \
+            --data "{\"text\":\"❌ Build o tests fallaron en la rama ${{github.ref_name}}\n${{github.actor}} intentó realizar un ${{github.event_name}}\"}" \
             $SLACK_WEBHOOK_URL
