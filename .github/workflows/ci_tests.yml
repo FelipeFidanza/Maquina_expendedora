@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -11,7 +11,9 @@ on:
       - main
 
 jobs:
-  build:
+
+  ci:
+    name: Continuous Integration
     runs-on: ubuntu-latest
 
     steps:
@@ -57,3 +59,22 @@ jobs:
           curl -X POST -H 'Content-type: application/json' \
             --data "{\"text\":\"❌ Build o tests fallaron en la rama ${{github.ref_name}}\n${{github.actor}} intentó realizar un ${{github.event_name}}\"}" \
             $SLACK_WEBHOOK_URL
+
+  cd:
+    name: Continuous Deployment
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref_name == 'main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5.6.0
+        with:
+          python-version: "3.x"
+
+      - name: Ejecutar script como parte del despliegue
+        run: |
+          python maquina_expendedora_ICS.py
