@@ -39,7 +39,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
         run: |
           curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"✅ Build y tests exitosos.\n${{github.actor}} realizó un ${{github.event_name}} desde la rama ${{github.head_ref}} a la rama ${{github.base_ref}}\"}" \
+            --data "{\"text\":\"✅ CI: Build y tests exitosos.\n${{github.actor}} realizó un ${{github.event_name}} desde la rama ${{github.head_ref}} a la rama ${{github.base_ref}}\"}" \
             $SLACK_WEBHOOK_URL
 
       - name: Feedback con Slack para éxito en commit
@@ -48,7 +48,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
         run: |
           curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"✅ Build y tests exitosos en la rama ${{github.ref_name}}\n${{github.actor}} realizó un ${{github.event_name}}\"}" \
+            --data "{\"text\":\"✅ CI: Build y tests exitosos en la rama ${{github.ref_name}}\n${{github.actor}} realizó un ${{github.event_name}}\"}" \
             $SLACK_WEBHOOK_URL
 
       - name: Feedback con Slack en caso de fallo
@@ -57,7 +57,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"❌ Build o tests fallaron en la rama ${{github.ref_name}}\n${{github.actor}} intentó realizar un ${{github.event_name}}\"}" \
+            --data "{\"text\":\"❌ CI: Build o tests fallaron en la rama ${{github.ref_name}}\n${{github.actor}} intentó realizar un ${{github.event_name}}\"}" \
             $SLACK_WEBHOOK_URL
 
   cd:
@@ -78,3 +78,12 @@ jobs:
       - name: Ejecutar script como parte del despliegue
         run: |
           python maquina_expendedora_ICS.py
+
+      - name: Feedback con Slack para CD
+        if: success()
+        env:
+          SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\"✅ CD: Nueva versión de la Maquina Expendedora disponible !\"}" \
+            $SLACK_WEBHOOK_URL
