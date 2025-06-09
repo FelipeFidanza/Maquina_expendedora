@@ -87,5 +87,3 @@ jobs:
           curl -X POST -H 'Content-type: application/json' \
             --data "{\"text\":\"✅ CD: Nueva versión de la Maquina Expendedora disponible !\"}" \
             $SLACK_WEBHOOK_URL
-
-            #Nada
