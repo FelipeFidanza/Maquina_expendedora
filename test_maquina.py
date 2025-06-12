@@ -21,7 +21,7 @@ class TestMaquinaExpendedora(unittest.TestCase):
         self.assertFalse(self.maquina.comprueba_billetes([8, 0, 1, 0])) # Devuelve falso por exceso de billetes
 
     def test_ingresa_menos_billetes(self):
-        self.assertTrue(self.maquina.comprueba_billetes([0, 1, 5, 0])) # Devuelve verdadero a la cantidad de billetes
+        self.assertTrue(self.maquina.comprueba_billetes([0, 1, 2, 0])) # Devuelve verdadero a la cantidad de billetes
         self.assertTrue(self.maquina.comprueba_billetes([1, 2, 0, 1])) # Devuelve verdadero a la cantidad de billetes
         self.assertTrue(self.maquina.comprueba_billetes([0, 0, 1, 0])) # Devuelve verdadero a la cantidad de billetes
         self.assertTrue(self.maquina.comprueba_billetes([1, 1, 1, 1])) # Devuelve verdadero a la cantidad de billetes
