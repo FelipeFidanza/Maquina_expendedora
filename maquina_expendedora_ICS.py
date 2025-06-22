@@ -77,7 +77,7 @@ class MaquinaExpendedora():
         print(f"\t- {billetes[2]} billetes de $5")
         print(f"\t- {billetes[3]} billetes de $10")
         print("Presione enter para continuar...")
-        time.sleep(1)
+        #time.sleep(1)
 
     def __mensaje_exito(self, producto, billetes, vuelto):
         os.system("cls")
@@ -98,7 +98,7 @@ class MaquinaExpendedora():
         print(f"\t- {billetes[2]} billetes de $5")
         print(f"\t- {billetes[3]} billetes de $10")
         print("Presione enter para continuar...")
-        time.sleep(1)
+        #time.sleep(1)
 
     def recarga_existencias(self, cantidad, producto):
         for i in range(1, 7):
@@ -131,22 +131,22 @@ def ingresa_billetes(maquina):
     print(maquina)
     print("Ingrese cantidad de billetes (límite de 5 en total)")
     #uno = int(input("billetes de 1: "))
-    time.sleep(1)
+    #time.sleep(1)
     os.system('cls')
     print(maquina)
     print("Ingrese cantidad de billetes (límite de 5 en total)")
     #dos = int(input("billetes de 2: "))
-    time.sleep(1)
+    #time.sleep(1)
     os.system('cls')
     print(maquina)
     print("Ingrese cantidad de billetes (límite de 5 en total)")
     #cinco = int(input("billetes de 5: "))
-    time.sleep(1)
+    #time.sleep(1)
     os.system('cls')
     print(maquina)
     print("Ingrese cantidad de billetes (límite de 5 en total)")
     #diez = int(input("billetes de 10: "))
-    time.sleep(1)
+    #time.sleep(1)
 
     return [0, 0, 0, 5]
 
@@ -170,13 +170,13 @@ for i in range(3):
         os.system('cls')
         print(maquina)
         print("Ingrese fila: ")
-        time.sleep(1)
+        #time.sleep(1)
         fila = convertir_fila("D")
 
         os.system('cls')
         print(maquina)
         print("Ingrese columna: ")
-        time.sleep(1)
+        #time.sleep(1)
         columna = 3
 
         # Lógica de buscar existencias
@@ -188,21 +188,21 @@ for i in range(3):
         os.system('cls')
         print(maquina)
         print("Ingrese la cantidad: ")
-        time.sleep(1)
+        #time.sleep(1)
         cantidad = 15
 
         # Pido artículo
         os.system('cls')
         print(maquina)
         print("Ingrese el producto (1-Galletitas | 2-Alfajor | 3-Chicle | 4-Chips | 5-Coca cola)")
-        time.sleep(1)
+        #time.sleep(1)
         producto = 3
         producto -= 1 # Para acomodarlo a la lista de python que arranca en 0
 
         os.system('cls')
         print(maquina)
         print(maquina.recarga_existencias(cantidad, producto))
-        time.sleep(1)
+        #time.sleep(1)
 
     # Desea salir
     elif i == 2:
