@@ -75,10 +75,6 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Ejecutar script como parte del despliegue
-        run: |
-          python maquina_expendedora_ICS.py
-
       - name: Feedback con Slack para CD
         if: success()
         env:
