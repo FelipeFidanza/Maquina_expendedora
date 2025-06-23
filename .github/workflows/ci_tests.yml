@@ -75,6 +75,10 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Despliegue en Render
+        run: |
+          curl -X POST https://api.render.com/deploy/srv-d1c2g0qdbo4c73cgrdrg?key=MaRVXLsDNG0
+
       - name: Feedback con Slack para CD
         if: success()
         env:
