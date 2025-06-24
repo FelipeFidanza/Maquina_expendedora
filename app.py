@@ -4,7 +4,7 @@ from maquina_expendedora_ICS import MaquinaExpendedora
 app = Flask(__name__)
 
 existencias = [
-    [24, 7, 6, 7, 5, 2, 4], # Galletitas $24
+    [25, 7, 6, 7, 5, 2, 4], # Galletitas $24
     [15, 5, 5, 2, 7, 4, 6], # Alfajor $15
     [8, 6, 1, 7, 3, 5, 3], # Chicle $8
     [37, 4, 3, 7, 4, 5, 1], # Chips $37
